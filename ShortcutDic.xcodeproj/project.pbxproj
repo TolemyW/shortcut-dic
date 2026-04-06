@@ -7,16 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		042FBE4AA24FAE6842FB12D0 /* ShortcutGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7A333195953122287690C7 /* ShortcutGridView.swift */; };
 		0A9A43185199CE02901DB8B6 /* AccessibilityHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F550BBC6476B08E5BB6C93BE /* AccessibilityHelper.swift */; };
 		487D3F3EBE78CBB3FEB09619 /* UsageTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 762C483EB23C28434F277BCE /* UsageTracker.swift */; };
 		51E0D222E16181F045E756EB /* UsageTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1F2A6FFFCCF96486B901AA /* UsageTrackerTests.swift */; };
 		6A2420D368E91F16F40F9A8F /* KeyMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D116224C34A9DE12BBF3C63D /* KeyMonitor.swift */; };
 		87DB617455BE5C6C1C55E36C /* KeyMonitorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B95AF7976D0AAD47BD79DC5 /* KeyMonitorTests.swift */; };
 		9326ECF50885EA955229ACA9 /* ShortcutModelsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FC87ADA103708F5485C12D /* ShortcutModelsTests.swift */; };
+		BB0E5FF39CB128A8812FE92D /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB9B8CC70A4FDFAEE136369 /* AppSettings.swift */; };
 		C6D66D9F5F9B1B80E556E2A7 /* MenuBarReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2030A5B5AC2494E0FCFC9085 /* MenuBarReader.swift */; };
 		C70D8CBCC6CC9AA1A9E749FD /* ShortcutDicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9F0893E603431A8DEB31FB /* ShortcutDicTests.swift */; };
 		CB659CC375A14BE9B076C343 /* ShortcutDicApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EB4D1B788686E7A9027887 /* ShortcutDicApp.swift */; };
+		D10522107F8E701A2651ACD8 /* OverlayPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90BA608B8FCBA9EC8CAB3377 /* OverlayPanel.swift */; };
 		D5F13346745F58B68848900F /* ShortcutModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F39C2F066D8D197F31BD63 /* ShortcutModels.swift */; };
+		D89D6E5B368DAA3DF3EDA644 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78CD3F8CBE1D966FA8694EB9 /* SettingsView.swift */; };
 		EBE737BC0208E12EE20BEEA1 /* MenuBarReaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBAB92D2FBC42655FECFEB6 /* MenuBarReaderTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -36,15 +40,19 @@
 		1E406D446F7AE472A820B2A3 /* ShortcutDicTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShortcutDicTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2030A5B5AC2494E0FCFC9085 /* MenuBarReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarReader.swift; sourceTree = "<group>"; };
 		29FC87ADA103708F5485C12D /* ShortcutModelsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutModelsTests.swift; sourceTree = "<group>"; };
+		2C7A333195953122287690C7 /* ShortcutGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutGridView.swift; sourceTree = "<group>"; };
 		3A9150F805F24BFA46270A2E /* ShortcutDic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShortcutDic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		417A9764E2ACF53DEA6D2931 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		4B95AF7976D0AAD47BD79DC5 /* KeyMonitorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyMonitorTests.swift; sourceTree = "<group>"; };
 		4D1F2A6FFFCCF96486B901AA /* UsageTrackerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageTrackerTests.swift; sourceTree = "<group>"; };
 		762C483EB23C28434F277BCE /* UsageTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageTracker.swift; sourceTree = "<group>"; };
+		78CD3F8CBE1D966FA8694EB9 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		90BA608B8FCBA9EC8CAB3377 /* OverlayPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayPanel.swift; sourceTree = "<group>"; };
 		A7F75E9D016EDA74060CBFC7 /* ShortcutDic.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShortcutDic.entitlements; sourceTree = "<group>"; };
 		B7F39C2F066D8D197F31BD63 /* ShortcutModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutModels.swift; sourceTree = "<group>"; };
 		BEBAB92D2FBC42655FECFEB6 /* MenuBarReaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarReaderTests.swift; sourceTree = "<group>"; };
 		D116224C34A9DE12BBF3C63D /* KeyMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyMonitor.swift; sourceTree = "<group>"; };
+		DFB9B8CC70A4FDFAEE136369 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		F550BBC6476B08E5BB6C93BE /* AccessibilityHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -68,9 +76,20 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		30E2E00A1CA55C13C9B9D3A8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				90BA608B8FCBA9EC8CAB3377 /* OverlayPanel.swift */,
+				78CD3F8CBE1D966FA8694EB9 /* SettingsView.swift */,
+				2C7A333195953122287690C7 /* ShortcutGridView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		4BEAC08D0587768E5969110B /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				DFB9B8CC70A4FDFAEE136369 /* AppSettings.swift */,
 				B7F39C2F066D8D197F31BD63 /* ShortcutModels.swift */,
 			);
 			path = Models;
@@ -90,6 +109,7 @@
 				4BEAC08D0587768E5969110B /* Models */,
 				2168FD01182CC2BB33953708 /* Services */,
 				8AA7ADDA8E6B8B2AE437B95A /* Utilities */,
+				30E2E00A1CA55C13C9B9D3A8 /* Views */,
 				417A9764E2ACF53DEA6D2931 /* Info.plist */,
 				A7F75E9D016EDA74060CBFC7 /* ShortcutDic.entitlements */,
 				14EB4D1B788686E7A9027887 /* ShortcutDicApp.swift */,
@@ -207,9 +227,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A9A43185199CE02901DB8B6 /* AccessibilityHelper.swift in Sources */,
+				BB0E5FF39CB128A8812FE92D /* AppSettings.swift in Sources */,
 				6A2420D368E91F16F40F9A8F /* KeyMonitor.swift in Sources */,
 				C6D66D9F5F9B1B80E556E2A7 /* MenuBarReader.swift in Sources */,
+				D10522107F8E701A2651ACD8 /* OverlayPanel.swift in Sources */,
+				D89D6E5B368DAA3DF3EDA644 /* SettingsView.swift in Sources */,
 				CB659CC375A14BE9B076C343 /* ShortcutDicApp.swift in Sources */,
+				042FBE4AA24FAE6842FB12D0 /* ShortcutGridView.swift in Sources */,
 				D5F13346745F58B68848900F /* ShortcutModels.swift in Sources */,
 				487D3F3EBE78CBB3FEB09619 /* UsageTracker.swift in Sources */,
 			);
