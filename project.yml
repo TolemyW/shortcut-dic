@@ -23,6 +23,9 @@ targets:
         CODE_SIGN_ENTITLEMENTS: ShortcutDic/ShortcutDic.entitlements
         PRODUCT_BUNDLE_IDENTIFIER: com.shortcutdic.app
         GENERATE_INFOPLIST_FILE: false
+        CODE_SIGN_STYLE: Automatic
+        CODE_SIGN_IDENTITY: "Apple Development"
+        DEVELOPMENT_TEAM: ""
 
   ShortcutDicTests:
     type: bundle.unit-test
