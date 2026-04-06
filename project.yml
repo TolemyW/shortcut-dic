@@ -1,0 +1,38 @@
+name: ShortcutDic
+options:
+  bundleIdPrefix: com.shortcutdic
+  deploymentTarget:
+    macOS: "13.0"
+  xcodeVersion: "15.0"
+  groupSortPosition: top
+
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    MACOSX_DEPLOYMENT_TARGET: "13.0"
+
+targets:
+  ShortcutDic:
+    type: application
+    platform: macOS
+    sources:
+      - ShortcutDic
+    settings:
+      base:
+        INFOPLIST_FILE: ShortcutDic/Info.plist
+        CODE_SIGN_ENTITLEMENTS: ShortcutDic/ShortcutDic.entitlements
+        PRODUCT_BUNDLE_IDENTIFIER: com.shortcutdic.app
+        GENERATE_INFOPLIST_FILE: false
+
+  ShortcutDicTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - ShortcutDicTests
+    dependencies:
+      - target: ShortcutDic
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: true
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/ShortcutDic.app/Contents/MacOS/ShortcutDic"
+        BUNDLE_LOADER: "$(TEST_HOST)"
