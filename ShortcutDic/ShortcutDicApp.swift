@@ -37,10 +37,8 @@ struct MenuBarContent: View {
                 }
             }
 
-            Button("Settings...") {
-                NSApp.sendAction(Selector(("showSettingsWindow:")), to: nil, from: nil)
-            }
-            .keyboardShortcut(",", modifiers: .command)
+            SettingsLink()
+                .keyboardShortcut(",", modifiers: .command)
 
             Divider()
 
