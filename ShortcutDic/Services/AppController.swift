@@ -19,6 +19,10 @@ final class AppController: ObservableObject {
         self.usageTracker = UsageTracker()
 
         setupBindings()
+
+        DispatchQueue.main.async { [weak self] in
+            self?.start()
+        }
     }
 
     func start() {

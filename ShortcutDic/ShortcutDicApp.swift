@@ -47,8 +47,5 @@ struct MenuBarContent: View {
             }
             .keyboardShortcut("q", modifiers: .command)
         }
-        .onAppear {
-            controller.start()
-        }
     }
 }
