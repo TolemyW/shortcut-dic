@@ -9,9 +9,11 @@
 /* Begin PBXBuildFile section */
 		0A9A43185199CE02901DB8B6 /* AccessibilityHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F550BBC6476B08E5BB6C93BE /* AccessibilityHelper.swift */; };
 		9326ECF50885EA955229ACA9 /* ShortcutModelsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FC87ADA103708F5485C12D /* ShortcutModelsTests.swift */; };
+		C6D66D9F5F9B1B80E556E2A7 /* MenuBarReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2030A5B5AC2494E0FCFC9085 /* MenuBarReader.swift */; };
 		C70D8CBCC6CC9AA1A9E749FD /* ShortcutDicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9F0893E603431A8DEB31FB /* ShortcutDicTests.swift */; };
 		CB659CC375A14BE9B076C343 /* ShortcutDicApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EB4D1B788686E7A9027887 /* ShortcutDicApp.swift */; };
 		D5F13346745F58B68848900F /* ShortcutModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F39C2F066D8D197F31BD63 /* ShortcutModels.swift */; };
+		EBE737BC0208E12EE20BEEA1 /* MenuBarReaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBAB92D2FBC42655FECFEB6 /* MenuBarReaderTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,11 +30,13 @@
 		0C9F0893E603431A8DEB31FB /* ShortcutDicTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutDicTests.swift; sourceTree = "<group>"; };
 		14EB4D1B788686E7A9027887 /* ShortcutDicApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutDicApp.swift; sourceTree = "<group>"; };
 		1E406D446F7AE472A820B2A3 /* ShortcutDicTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShortcutDicTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2030A5B5AC2494E0FCFC9085 /* MenuBarReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarReader.swift; sourceTree = "<group>"; };
 		29FC87ADA103708F5485C12D /* ShortcutModelsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutModelsTests.swift; sourceTree = "<group>"; };
 		3A9150F805F24BFA46270A2E /* ShortcutDic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShortcutDic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		417A9764E2ACF53DEA6D2931 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		A7F75E9D016EDA74060CBFC7 /* ShortcutDic.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShortcutDic.entitlements; sourceTree = "<group>"; };
 		B7F39C2F066D8D197F31BD63 /* ShortcutModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutModels.swift; sourceTree = "<group>"; };
+		BEBAB92D2FBC42655FECFEB6 /* MenuBarReaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarReaderTests.swift; sourceTree = "<group>"; };
 		F550BBC6476B08E5BB6C93BE /* AccessibilityHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -44,6 +48,14 @@
 				1E406D446F7AE472A820B2A3 /* ShortcutDicTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		2168FD01182CC2BB33953708 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				2030A5B5AC2494E0FCFC9085 /* MenuBarReader.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		4BEAC08D0587768E5969110B /* Models */ = {
@@ -66,6 +78,7 @@
 			isa = PBXGroup;
 			children = (
 				4BEAC08D0587768E5969110B /* Models */,
+				2168FD01182CC2BB33953708 /* Services */,
 				8AA7ADDA8E6B8B2AE437B95A /* Utilities */,
 				417A9764E2ACF53DEA6D2931 /* Info.plist */,
 				A7F75E9D016EDA74060CBFC7 /* ShortcutDic.entitlements */,
@@ -78,9 +91,18 @@
 			isa = PBXGroup;
 			children = (
 				DF583B2F768502EFEF518A8C /* Models */,
+				D65164BB4C341608042D0980 /* Services */,
 				0C9F0893E603431A8DEB31FB /* ShortcutDicTests.swift */,
 			);
 			path = ShortcutDicTests;
+			sourceTree = "<group>";
+		};
+		D65164BB4C341608042D0980 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				BEBAB92D2FBC42655FECFEB6 /* MenuBarReaderTests.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		DF583B2F768502EFEF518A8C /* Models */ = {
@@ -173,6 +195,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A9A43185199CE02901DB8B6 /* AccessibilityHelper.swift in Sources */,
+				C6D66D9F5F9B1B80E556E2A7 /* MenuBarReader.swift in Sources */,
 				CB659CC375A14BE9B076C343 /* ShortcutDicApp.swift in Sources */,
 				D5F13346745F58B68848900F /* ShortcutModels.swift in Sources */,
 			);
@@ -182,6 +205,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EBE737BC0208E12EE20BEEA1 /* MenuBarReaderTests.swift in Sources */,
 				C70D8CBCC6CC9AA1A9E749FD /* ShortcutDicTests.swift in Sources */,
 				9326ECF50885EA955229ACA9 /* ShortcutModelsTests.swift in Sources */,
 			);
