@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9326ECF50885EA955229ACA9 /* ShortcutModelsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FC87ADA103708F5485C12D /* ShortcutModelsTests.swift */; };
 		C70D8CBCC6CC9AA1A9E749FD /* ShortcutDicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9F0893E603431A8DEB31FB /* ShortcutDicTests.swift */; };
 		CB659CC375A14BE9B076C343 /* ShortcutDicApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EB4D1B788686E7A9027887 /* ShortcutDicApp.swift */; };
+		D5F13346745F58B68848900F /* ShortcutModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F39C2F066D8D197F31BD63 /* ShortcutModels.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -25,9 +27,11 @@
 		0C9F0893E603431A8DEB31FB /* ShortcutDicTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutDicTests.swift; sourceTree = "<group>"; };
 		14EB4D1B788686E7A9027887 /* ShortcutDicApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutDicApp.swift; sourceTree = "<group>"; };
 		1E406D446F7AE472A820B2A3 /* ShortcutDicTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShortcutDicTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		29FC87ADA103708F5485C12D /* ShortcutModelsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutModelsTests.swift; sourceTree = "<group>"; };
 		3A9150F805F24BFA46270A2E /* ShortcutDic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShortcutDic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		417A9764E2ACF53DEA6D2931 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		A7F75E9D016EDA74060CBFC7 /* ShortcutDic.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShortcutDic.entitlements; sourceTree = "<group>"; };
+		B7F39C2F066D8D197F31BD63 /* ShortcutModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutModels.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -40,9 +44,18 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		4BEAC08D0587768E5969110B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B7F39C2F066D8D197F31BD63 /* ShortcutModels.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		C93E64215FAFBCB461BCAE8A /* ShortcutDic */ = {
 			isa = PBXGroup;
 			children = (
+				4BEAC08D0587768E5969110B /* Models */,
 				417A9764E2ACF53DEA6D2931 /* Info.plist */,
 				A7F75E9D016EDA74060CBFC7 /* ShortcutDic.entitlements */,
 				14EB4D1B788686E7A9027887 /* ShortcutDicApp.swift */,
@@ -53,9 +66,18 @@
 		D52902F715EA38C1AC5D5164 /* ShortcutDicTests */ = {
 			isa = PBXGroup;
 			children = (
+				DF583B2F768502EFEF518A8C /* Models */,
 				0C9F0893E603431A8DEB31FB /* ShortcutDicTests.swift */,
 			);
 			path = ShortcutDicTests;
+			sourceTree = "<group>";
+		};
+		DF583B2F768502EFEF518A8C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				29FC87ADA103708F5485C12D /* ShortcutModelsTests.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		E004405D76AE0EC02158A04D = {
@@ -140,6 +162,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB659CC375A14BE9B076C343 /* ShortcutDicApp.swift in Sources */,
+				D5F13346745F58B68848900F /* ShortcutModels.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,6 +171,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C70D8CBCC6CC9AA1A9E749FD /* ShortcutDicTests.swift in Sources */,
+				9326ECF50885EA955229ACA9 /* ShortcutModelsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
