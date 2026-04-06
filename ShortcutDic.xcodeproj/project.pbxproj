@@ -14,6 +14,7 @@
 		6A2420D368E91F16F40F9A8F /* KeyMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D116224C34A9DE12BBF3C63D /* KeyMonitor.swift */; };
 		87DB617455BE5C6C1C55E36C /* KeyMonitorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B95AF7976D0AAD47BD79DC5 /* KeyMonitorTests.swift */; };
 		9326ECF50885EA955229ACA9 /* ShortcutModelsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FC87ADA103708F5485C12D /* ShortcutModelsTests.swift */; };
+		A7A64533B30DF54939769806 /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FD39DF127AE99269226C31 /* AppController.swift */; };
 		BB0E5FF39CB128A8812FE92D /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB9B8CC70A4FDFAEE136369 /* AppSettings.swift */; };
 		C6D66D9F5F9B1B80E556E2A7 /* MenuBarReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2030A5B5AC2494E0FCFC9085 /* MenuBarReader.swift */; };
 		C70D8CBCC6CC9AA1A9E749FD /* ShortcutDicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9F0893E603431A8DEB31FB /* ShortcutDicTests.swift */; };
@@ -49,6 +50,7 @@
 		78CD3F8CBE1D966FA8694EB9 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		90BA608B8FCBA9EC8CAB3377 /* OverlayPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayPanel.swift; sourceTree = "<group>"; };
 		A7F75E9D016EDA74060CBFC7 /* ShortcutDic.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShortcutDic.entitlements; sourceTree = "<group>"; };
+		B3FD39DF127AE99269226C31 /* AppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppController.swift; sourceTree = "<group>"; };
 		B7F39C2F066D8D197F31BD63 /* ShortcutModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutModels.swift; sourceTree = "<group>"; };
 		BEBAB92D2FBC42655FECFEB6 /* MenuBarReaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarReaderTests.swift; sourceTree = "<group>"; };
 		D116224C34A9DE12BBF3C63D /* KeyMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyMonitor.swift; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 		2168FD01182CC2BB33953708 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				B3FD39DF127AE99269226C31 /* AppController.swift */,
 				D116224C34A9DE12BBF3C63D /* KeyMonitor.swift */,
 				2030A5B5AC2494E0FCFC9085 /* MenuBarReader.swift */,
 				762C483EB23C28434F277BCE /* UsageTracker.swift */,
@@ -227,6 +230,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A9A43185199CE02901DB8B6 /* AccessibilityHelper.swift in Sources */,
+				A7A64533B30DF54939769806 /* AppController.swift in Sources */,
 				BB0E5FF39CB128A8812FE92D /* AppSettings.swift in Sources */,
 				6A2420D368E91F16F40F9A8F /* KeyMonitor.swift in Sources */,
 				C6D66D9F5F9B1B80E556E2A7 /* MenuBarReader.swift in Sources */,

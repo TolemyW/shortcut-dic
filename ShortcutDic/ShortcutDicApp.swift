@@ -2,17 +2,55 @@ import SwiftUI
 
 @main
 struct ShortcutDicApp: App {
+    @StateObject private var controller = AppController()
+
     var body: some Scene {
-        MenuBarExtra("ShortcutDic", systemImage: "keyboard") {
-            Text("ShortcutDic is running")
+        MenuBarExtra {
+            MenuBarContent(controller: controller)
+        } label: {
+            Image(systemName: "keyboard")
+        }
+
+        Settings {
+            SettingsView(settings: controller.settings)
+        }
+    }
+}
+
+struct MenuBarContent: View {
+    @ObservedObject var controller: AppController
+
+    var body: some View {
+        VStack {
+            HStack {
+                Circle()
+                    .fill(AccessibilityHelper.isTrusted ? Color.green : Color.red)
+                    .frame(width: 8, height: 8)
+                Text(AccessibilityHelper.isTrusted ? "Running" : "Needs Permission")
+            }
+
             Divider()
-            Button("Quit") {
+
+            if !AccessibilityHelper.isTrusted {
+                Button("Grant Accessibility Access") {
+                    AccessibilityHelper.promptForPermission()
+                }
+            }
+
+            Button("Settings...") {
+                NSApp.sendAction(Selector(("showSettingsWindow:")), to: nil, from: nil)
+            }
+            .keyboardShortcut(",", modifiers: .command)
+
+            Divider()
+
+            Button("Quit ShortcutDic") {
                 NSApplication.shared.terminate(nil)
             }
+            .keyboardShortcut("q", modifiers: .command)
         }
-        Settings {
-            Text("Settings placeholder")
-                .frame(width: 300, height: 200)
+        .onAppear {
+            controller.start()
         }
     }
 }
