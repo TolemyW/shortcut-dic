@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A9A43185199CE02901DB8B6 /* AccessibilityHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F550BBC6476B08E5BB6C93BE /* AccessibilityHelper.swift */; };
 		9326ECF50885EA955229ACA9 /* ShortcutModelsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FC87ADA103708F5485C12D /* ShortcutModelsTests.swift */; };
 		C70D8CBCC6CC9AA1A9E749FD /* ShortcutDicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9F0893E603431A8DEB31FB /* ShortcutDicTests.swift */; };
 		CB659CC375A14BE9B076C343 /* ShortcutDicApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14EB4D1B788686E7A9027887 /* ShortcutDicApp.swift */; };
@@ -32,6 +33,7 @@
 		417A9764E2ACF53DEA6D2931 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		A7F75E9D016EDA74060CBFC7 /* ShortcutDic.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShortcutDic.entitlements; sourceTree = "<group>"; };
 		B7F39C2F066D8D197F31BD63 /* ShortcutModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutModels.swift; sourceTree = "<group>"; };
+		F550BBC6476B08E5BB6C93BE /* AccessibilityHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -52,10 +54,19 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		8AA7ADDA8E6B8B2AE437B95A /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				F550BBC6476B08E5BB6C93BE /* AccessibilityHelper.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		C93E64215FAFBCB461BCAE8A /* ShortcutDic */ = {
 			isa = PBXGroup;
 			children = (
 				4BEAC08D0587768E5969110B /* Models */,
+				8AA7ADDA8E6B8B2AE437B95A /* Utilities */,
 				417A9764E2ACF53DEA6D2931 /* Info.plist */,
 				A7F75E9D016EDA74060CBFC7 /* ShortcutDic.entitlements */,
 				14EB4D1B788686E7A9027887 /* ShortcutDicApp.swift */,
@@ -161,6 +172,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A9A43185199CE02901DB8B6 /* AccessibilityHelper.swift in Sources */,
 				CB659CC375A14BE9B076C343 /* ShortcutDicApp.swift in Sources */,
 				D5F13346745F58B68848900F /* ShortcutModels.swift in Sources */,
 			);
