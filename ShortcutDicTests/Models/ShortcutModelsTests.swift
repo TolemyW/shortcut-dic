@@ -10,7 +10,7 @@ final class ShortcutModelsTests: XCTestCase {
             modifiers: .command,
             menuPath: "Edit"
         )
-        XCTAssertEqual(shortcut.displayString, "⌘C")
+        XCTAssertEqual(shortcut.displayString, "⌘ C")
     }
 
     func testShortcutDisplayString_commandShiftZ() {

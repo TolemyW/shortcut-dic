@@ -8,7 +8,7 @@ struct ShortcutDicApp: App {
         MenuBarExtra {
             MenuBarContent(controller: controller)
         } label: {
-            Image(systemName: "keyboard")
+            Image("MenuBarIcon")
         }
 
         Settings {

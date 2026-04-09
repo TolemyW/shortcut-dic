@@ -1,6 +1,7 @@
 import XCTest
 @testable import ShortcutDic
 
+@MainActor
 final class MenuBarReaderTests: XCTestCase {
 
     func testCacheReturnsSameResultForSameApp() async {

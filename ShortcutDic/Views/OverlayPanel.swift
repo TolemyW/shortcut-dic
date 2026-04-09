@@ -3,6 +3,11 @@ import AppKit
 
 final class OverlayPanel: NSPanel {
 
+    var isSearchMode = false
+
+    override var canBecomeKey: Bool { isSearchMode }
+    override var canBecomeMain: Bool { false }
+
     init() {
         super.init(
             contentRect: .zero,
@@ -21,12 +26,45 @@ final class OverlayPanel: NSPanel {
         isExcludedFromWindowsMenu = true
     }
 
-    func showOverlay<V: View>(_ view: V, at position: PanelPosition) {
+    func enterSearchMode() {
+        isSearchMode = true
+        styleMask.remove(.nonactivatingPanel)
+        NSApp.activate()
+        makeKeyAndOrderFront(nil)
+        // Focus the first NSTextField inside the hosting view
+        DispatchQueue.main.async { [weak self] in
+            self?.focusTextField()
+        }
+    }
+
+    func exitSearchMode() {
+        isSearchMode = false
+        styleMask.insert(.nonactivatingPanel)
+        resignKey()
+    }
+
+    private func focusTextField() {
+        guard let contentView else { return }
+        if let textField = findTextField(in: contentView) {
+            makeFirstResponder(textField)
+        }
+    }
+
+    private func findTextField(in view: NSView) -> NSTextField? {
+        if let tf = view as? NSTextField, tf.isEditable { return tf }
+        for sub in view.subviews {
+            if let found = findTextField(in: sub) { return found }
+        }
+        return nil
+    }
+
+    func showOverlay<V: View>(_ view: V, at position: PanelPosition, material: NSVisualEffectView.Material = .hudWindow, panelOpacity: CGFloat = 0.95) {
         let hostingView = NSHostingView(rootView: view)
         hostingView.frame.size = hostingView.fittingSize
 
         let visualEffect = NSVisualEffectView()
-        visualEffect.material = .hudWindow
+        visualEffect.material = material
+        visualEffect.alphaValue = panelOpacity
         visualEffect.blendingMode = .behindWindow
         visualEffect.state = .active
         visualEffect.wantsLayer = true
@@ -49,13 +87,19 @@ final class OverlayPanel: NSPanel {
         }
     }
 
-    func hideOverlay() {
-        NSAnimationContext.runAnimationGroup({ context in
-            context.duration = 0.15
-            self.animator().alphaValue = 0
-        }, completionHandler: {
-            self.orderOut(nil)
-        })
+    func hideOverlay(animated: Bool = true) {
+        if isSearchMode { exitSearchMode() }
+        if animated {
+            NSAnimationContext.runAnimationGroup({ context in
+                context.duration = 0.15
+                self.animator().alphaValue = 0
+            }, completionHandler: {
+                self.orderOut(nil)
+            })
+        } else {
+            alphaValue = 0
+            orderOut(nil)
+        }
     }
 
     private func positionOnScreen(_ position: PanelPosition) {

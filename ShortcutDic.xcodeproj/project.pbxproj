@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 63;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -23,6 +23,16 @@
 		D5F13346745F58B68848900F /* ShortcutModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F39C2F066D8D197F31BD63 /* ShortcutModels.swift */; };
 		D89D6E5B368DAA3DF3EDA644 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78CD3F8CBE1D966FA8694EB9 /* SettingsView.swift */; };
 		EBE737BC0208E12EE20BEEA1 /* MenuBarReaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBAB92D2FBC42655FECFEB6 /* MenuBarReaderTests.swift */; };
+		F2E1D0C9B8A7F6E5D4C3B2A1 /* ShortcutExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6A7B8C9D0E1F2 /* ShortcutExecutor.swift */; };
+		2F1E0D9C8B7A6F5E4D3C2B1A /* FuzzyMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2B3C4D5E6F7A8B9C0D1E2F /* FuzzyMatch.swift */; };
+		4A3F2E1D0C9B8A7F6E5D4C3B /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4C5D6E7F8A9B0C1D2E3F4A /* SearchTextField.swift */; };
+		6B5A4F3E2D1C0B9A8F7E6D5C /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6D7E8F9A0B1C2D3E4F5A6B /* SearchView.swift */; };
+		AA11BB22CC33DD44EE55FF66 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11AA22BB33CC44DD55EE66FF /* AppTheme.swift */; };
+		BB22CC33DD44EE55FF66AA11 /* HotkeyRecorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BB33CC44DD55EE66FF11AA /* HotkeyRecorderView.swift */; };
+		CC33DD44EE55FF66AA11BB22 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33CC44DD55EE66FF11AA22BB /* Assets.xcassets */; };
+		DD55EE66FF77AA11BB22CC33 /* SystemShortcutReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DD55EE66FF77AA11BB22CC /* SystemShortcutReader.swift */; };
+		EE66FF77AA11BB22CC33DD44 /* FuzzyMatchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EE66FF77AA11BB22CC33DD /* FuzzyMatchTests.swift */; };
+		FF77AA11BB22CC33DD44EE55 /* SystemShortcutReaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FF77AA11BB22CC33DD44EE /* SystemShortcutReaderTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +66,16 @@
 		D116224C34A9DE12BBF3C63D /* KeyMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyMonitor.swift; sourceTree = "<group>"; };
 		DFB9B8CC70A4FDFAEE136369 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		F550BBC6476B08E5BB6C93BE /* AccessibilityHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityHelper.swift; sourceTree = "<group>"; };
+		A1B2C3D4E5F6A7B8C9D0E1F2 /* ShortcutExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutExecutor.swift; sourceTree = "<group>"; };
+		1A2B3C4D5E6F7A8B9C0D1E2F /* FuzzyMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuzzyMatch.swift; sourceTree = "<group>"; };
+		3B4C5D6E7F8A9B0C1D2E3F4A /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
+		5C6D7E8F9A0B1C2D3E4F5A6B /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		11AA22BB33CC44DD55EE66FF /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
+		22BB33CC44DD55EE66FF11AA /* HotkeyRecorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyRecorderView.swift; sourceTree = "<group>"; };
+		33CC44DD55EE66FF11AA22BB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		44DD55EE66FF77AA11BB22CC /* SystemShortcutReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemShortcutReader.swift; sourceTree = "<group>"; };
+		55EE66FF77AA11BB22CC33DD /* FuzzyMatchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuzzyMatchTests.swift; sourceTree = "<group>"; };
+		66FF77AA11BB22CC33DD44EE /* SystemShortcutReaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemShortcutReaderTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -74,6 +94,8 @@
 				B3FD39DF127AE99269226C31 /* AppController.swift */,
 				D116224C34A9DE12BBF3C63D /* KeyMonitor.swift */,
 				2030A5B5AC2494E0FCFC9085 /* MenuBarReader.swift */,
+				A1B2C3D4E5F6A7B8C9D0E1F2 /* ShortcutExecutor.swift */,
+				44DD55EE66FF77AA11BB22CC /* SystemShortcutReader.swift */,
 				762C483EB23C28434F277BCE /* UsageTracker.swift */,
 			);
 			path = Services;
@@ -82,7 +104,10 @@
 		30E2E00A1CA55C13C9B9D3A8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				22BB33CC44DD55EE66FF11AA /* HotkeyRecorderView.swift */,
 				90BA608B8FCBA9EC8CAB3377 /* OverlayPanel.swift */,
+				3B4C5D6E7F8A9B0C1D2E3F4A /* SearchTextField.swift */,
+				5C6D7E8F9A0B1C2D3E4F5A6B /* SearchView.swift */,
 				78CD3F8CBE1D966FA8694EB9 /* SettingsView.swift */,
 				2C7A333195953122287690C7 /* ShortcutGridView.swift */,
 			);
@@ -93,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				DFB9B8CC70A4FDFAEE136369 /* AppSettings.swift */,
+				11AA22BB33CC44DD55EE66FF /* AppTheme.swift */,
 				B7F39C2F066D8D197F31BD63 /* ShortcutModels.swift */,
 			);
 			path = Models;
@@ -102,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				F550BBC6476B08E5BB6C93BE /* AccessibilityHelper.swift */,
+				1A2B3C4D5E6F7A8B9C0D1E2F /* FuzzyMatch.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -109,6 +136,7 @@
 		C93E64215FAFBCB461BCAE8A /* ShortcutDic */ = {
 			isa = PBXGroup;
 			children = (
+				33CC44DD55EE66FF11AA22BB /* Assets.xcassets */,
 				4BEAC08D0587768E5969110B /* Models */,
 				2168FD01182CC2BB33953708 /* Services */,
 				8AA7ADDA8E6B8B2AE437B95A /* Utilities */,
@@ -120,11 +148,20 @@
 			path = ShortcutDic;
 			sourceTree = "<group>";
 		};
+		77AA11BB22CC33DD44EE55FF /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				55EE66FF77AA11BB22CC33DD /* FuzzyMatchTests.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		D52902F715EA38C1AC5D5164 /* ShortcutDicTests */ = {
 			isa = PBXGroup;
 			children = (
 				DF583B2F768502EFEF518A8C /* Models */,
 				D65164BB4C341608042D0980 /* Services */,
+				77AA11BB22CC33DD44EE55FF /* Utilities */,
 				0C9F0893E603431A8DEB31FB /* ShortcutDicTests.swift */,
 			);
 			path = ShortcutDicTests;
@@ -135,6 +172,7 @@
 			children = (
 				4B95AF7976D0AAD47BD79DC5 /* KeyMonitorTests.swift */,
 				BEBAB92D2FBC42655FECFEB6 /* MenuBarReaderTests.swift */,
+				66FF77AA11BB22CC33DD44EE /* SystemShortcutReaderTests.swift */,
 				4D1F2A6FFFCCF96486B901AA /* UsageTrackerTests.swift */,
 			);
 			path = Services;
@@ -164,6 +202,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F657B503AA65433DC8BEE507 /* Build configuration list for PBXNativeTarget "ShortcutDic" */;
 			buildPhases = (
+				DD44EE55FF66AA11BB22CC33 /* Resources */,
 				A0B58DBB525901F920F12514 /* Sources */,
 			);
 			buildRules = (
@@ -205,7 +244,6 @@
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					042D60F7E6B61E46AB27A967 = {
-						DevelopmentTeam = "";
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -220,7 +258,6 @@
 			);
 			mainGroup = E004405D76AE0EC02158A04D;
 			minimizedProjectReferenceProxies = 1;
-			preferredProjectObjectVersion = 77;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -229,6 +266,17 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DD44EE55FF66AA11BB22CC33 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC33DD44EE55FF66AA11BB22 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		A0B58DBB525901F920F12514 /* Sources */ = {
@@ -246,6 +294,13 @@
 				042FBE4AA24FAE6842FB12D0 /* ShortcutGridView.swift in Sources */,
 				D5F13346745F58B68848900F /* ShortcutModels.swift in Sources */,
 				487D3F3EBE78CBB3FEB09619 /* UsageTracker.swift in Sources */,
+				F2E1D0C9B8A7F6E5D4C3B2A1 /* ShortcutExecutor.swift in Sources */,
+				2F1E0D9C8B7A6F5E4D3C2B1A /* FuzzyMatch.swift in Sources */,
+				4A3F2E1D0C9B8A7F6E5D4C3B /* SearchTextField.swift in Sources */,
+				6B5A4F3E2D1C0B9A8F7E6D5C /* SearchView.swift in Sources */,
+				AA11BB22CC33DD44EE55FF66 /* AppTheme.swift in Sources */,
+				BB22CC33DD44EE55FF66AA11 /* HotkeyRecorderView.swift in Sources */,
+				DD55EE66FF77AA11BB22CC33 /* SystemShortcutReader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,6 +313,8 @@
 				C70D8CBCC6CC9AA1A9E749FD /* ShortcutDicTests.swift in Sources */,
 				9326ECF50885EA955229ACA9 /* ShortcutModelsTests.swift in Sources */,
 				51E0D222E16181F045E756EB /* UsageTrackerTests.swift in Sources */,
+				EE66FF77AA11BB22CC33DD44 /* FuzzyMatchTests.swift in Sources */,
+				FF77AA11BB22CC33DD44EE55 /* SystemShortcutReaderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,7 +337,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 95S9NF5573;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = ShortcutDic/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -300,7 +357,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 95S9NF5573;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = ShortcutDic/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -1,5 +1,6 @@
 import AppKit
 
+@MainActor
 final class UsageTracker {
 
     struct UsageEntry: Codable {
@@ -18,7 +19,9 @@ final class UsageTracker {
     private let storageURL: URL
 
     init(storageURL: URL? = nil) {
-        self.storageURL = storageURL ?? Self.defaultStorageURL()
+        let base = storageURL ?? Self.defaultStorageURL()
+        self.storageURL = base
+        self.recentStorageURL = base.deletingLastPathComponent().appendingPathComponent("recent.json")
         load()
     }
 
@@ -59,16 +62,63 @@ final class UsageTracker {
             ) }
     }
 
+    // MARK: - Recent Interactions (from search mode)
+
+    struct RecentEntry: Codable {
+        let keyEquivalent: String
+        let modifiersRawValue: UInt
+        let title: String
+        let menuPath: String
+        let timestamp: Date
+    }
+
+    private var recentData: [String: [RecentEntry]] = [:]
+    private let recentStorageURL: URL
+
+    func recordRecent(bundleId: String, shortcut: Shortcut) {
+        var entries = recentData[bundleId] ?? []
+        // Remove duplicate if exists
+        entries.removeAll {
+            $0.keyEquivalent == shortcut.keyEquivalent &&
+            $0.modifiersRawValue == shortcut.modifiers.rawValue
+        }
+        entries.insert(RecentEntry(
+            keyEquivalent: shortcut.keyEquivalent,
+            modifiersRawValue: shortcut.modifiers.rawValue,
+            title: shortcut.title,
+            menuPath: shortcut.menuPath,
+            timestamp: Date()
+        ), at: 0)
+        // Keep max 20 per app
+        if entries.count > 20 { entries = Array(entries.prefix(20)) }
+        recentData[bundleId] = entries
+        saveRecent()
+    }
+
+    func recentShortcuts(for bundleId: String, limit: Int) -> [RecentEntry] {
+        Array((recentData[bundleId] ?? []).prefix(limit))
+    }
+
+    // MARK: - Persistence
+
     func save() {
         guard let jsonData = try? JSONEncoder().encode(data) else { return }
         try? jsonData.write(to: storageURL, options: .atomic)
     }
 
+    private func saveRecent() {
+        guard let jsonData = try? JSONEncoder().encode(recentData) else { return }
+        try? jsonData.write(to: recentStorageURL, options: .atomic)
+    }
+
     private func load() {
-        guard let jsonData = try? Data(contentsOf: storageURL),
-              let decoded = try? JSONDecoder().decode([String: [String: UsageEntry]].self, from: jsonData) else {
-            return
+        if let jsonData = try? Data(contentsOf: storageURL),
+           let decoded = try? JSONDecoder().decode([String: [String: UsageEntry]].self, from: jsonData) {
+            data = decoded
         }
-        data = decoded
+        if let jsonData = try? Data(contentsOf: recentStorageURL),
+           let decoded = try? JSONDecoder().decode([String: [RecentEntry]].self, from: jsonData) {
+            recentData = decoded
+        }
     }
 }

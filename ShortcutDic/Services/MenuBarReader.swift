@@ -1,6 +1,10 @@
 import AppKit
 import ApplicationServices
+import os.log
 
+private let log = Logger(subsystem: Bundle.main.bundleIdentifier ?? "ShortcutDic", category: "MenuBarReader")
+
+@MainActor
 final class MenuBarReader {
 
     private var cache: [String: CacheEntry] = [:]
@@ -35,18 +39,20 @@ final class MenuBarReader {
         return result
     }
 
-    private func readMenuBar(pid: pid_t, appName: String, bundleId: String) -> AppShortcuts? {
+    private nonisolated func readMenuBar(pid: pid_t, appName: String, bundleId: String) -> AppShortcuts? {
         let appElement = AXUIElementCreateApplication(pid)
 
         var menuBarValue: CFTypeRef?
-        guard AXUIElementCopyAttributeValue(appElement, kAXMenuBarAttribute as CFString, &menuBarValue) == .success,
-              let menuBar = menuBarValue else {
+        let menuBarResult = AXUIElementCopyAttributeValue(appElement, kAXMenuBarAttribute as CFString, &menuBarValue)
+        guard menuBarResult == .success, let menuBar = menuBarValue else {
+            log.warning("Failed to get menu bar for \(appName) (pid \(pid)): AXError \(menuBarResult.rawValue)")
             return nil
         }
 
         var childrenValue: CFTypeRef?
-        guard AXUIElementCopyAttributeValue(menuBar as! AXUIElement, kAXChildrenAttribute as CFString, &childrenValue) == .success,
-              let children = childrenValue as? [AXUIElement] else {
+        let childrenResult = AXUIElementCopyAttributeValue(menuBar as! AXUIElement, kAXChildrenAttribute as CFString, &childrenValue)
+        guard childrenResult == .success, let children = childrenValue as? [AXUIElement] else {
+            log.warning("Failed to get menu bar children for \(appName): AXError \(childrenResult.rawValue)")
             return nil
         }
 
@@ -64,10 +70,11 @@ final class MenuBarReader {
             }
         }
 
+        log.info("Read \(groups.count) menu groups with shortcuts for \(appName)")
         return AppShortcuts(appName: appName, bundleIdentifier: bundleId, groups: groups)
     }
 
-    private func readMenuItems(_ element: AXUIElement, menuPath: String, into shortcuts: inout [Shortcut]) {
+    private nonisolated func readMenuItems(_ element: AXUIElement, menuPath: String, into shortcuts: inout [Shortcut]) {
         var submenuValue: CFTypeRef?
         var children: [AXUIElement] = []
 
@@ -90,10 +97,14 @@ final class MenuBarReader {
                 var modifiersValue: CFTypeRef?
                 var modifiers: NSEvent.ModifierFlags = .command
 
+                var axModRaw: Int = 0
                 if AXUIElementCopyAttributeValue(item, kAXMenuItemCmdModifiersAttribute as CFString, &modifiersValue) == .success,
                    let modNum = modifiersValue as? Int {
+                    axModRaw = modNum
                     modifiers = Self.convertAXModifiers(modNum)
                 }
+
+                log.info("  \(menuPath) > \(title): key='\(cmdChar)' axMod=\(axModRaw) → flags=\(modifiers.rawValue)")
 
                 shortcuts.append(Shortcut(
                     title: title,
@@ -112,7 +123,7 @@ final class MenuBarReader {
         }
     }
 
-    private func getStringAttribute(_ element: AXUIElement, _ attribute: String) -> String? {
+    private nonisolated func getStringAttribute(_ element: AXUIElement, _ attribute: String) -> String? {
         var value: CFTypeRef?
         guard AXUIElementCopyAttributeValue(element, attribute as CFString, &value) == .success else {
             return nil
@@ -122,7 +133,7 @@ final class MenuBarReader {
 
     /// Convert AX modifier flags to NSEvent.ModifierFlags.
     /// kAXMenuItemCmdModifiers bit values: 0=⌘only, 1=shift, 2=option, 4=control, 8=no-⌘
-    static func convertAXModifiers(_ axModifiers: Int) -> NSEvent.ModifierFlags {
+    nonisolated static func convertAXModifiers(_ axModifiers: Int) -> NSEvent.ModifierFlags {
         var flags: NSEvent.ModifierFlags = .command
 
         if axModifiers & 1 != 0 { flags.insert(.shift) }
