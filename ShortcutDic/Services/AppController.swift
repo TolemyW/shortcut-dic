@@ -31,6 +31,9 @@ final class AppController: ObservableObject {
     private var localHotkeyMonitor: Any?
     private var cacheCleanupTimer: Timer?
 
+    /// Last non-self frontmost app, used when ShortcutDic is frontmost (e.g. after menu bar click)
+    private var lastExternalApp: NSRunningApplication?
+
     // Cached state for transitioning between modes
     private var currentShortcuts: AppShortcuts?
     private var currentFilteredShortcuts: AppShortcuts?
@@ -147,26 +150,34 @@ final class AppController: ObservableObject {
             }
             .store(in: &cancellables)
 
-        // Invalidate system shortcut cache periodically when app activates
+        // Track last non-self frontmost app + invalidate system shortcut cache
         NotificationCenter.default.publisher(for: NSWorkspace.didActivateApplicationNotification)
-            .sink { [weak self] _ in
-                self?.systemShortcutReader.clearCache()
+            .sink { [weak self] notification in
+                guard let self else { return }
+                self.systemShortcutReader.clearCache()
+                if let app = notification.userInfo?[NSWorkspace.applicationUserInfoKey] as? NSRunningApplication,
+                   app.bundleIdentifier != Bundle.main.bundleIdentifier {
+                    self.lastExternalApp = app
+                }
             }
             .store(in: &cancellables)
     }
 
     // MARK: - Speed View
 
+    /// Returns the effective target app: if frontmost is self, fall back to last external app.
+    private func resolveTargetApp() -> NSRunningApplication? {
+        if let front = NSWorkspace.shared.frontmostApplication,
+           front.bundleIdentifier != Bundle.main.bundleIdentifier {
+            return front
+        }
+        return lastExternalApp
+    }
+
     private func showSpeedView(for modifier: NSEvent.ModifierFlags) async {
-        guard let frontApp = NSWorkspace.shared.frontmostApplication,
+        guard let frontApp = resolveTargetApp(),
               let bundleId = frontApp.bundleIdentifier else {
             log.warning("No frontmost application found")
-            return
-        }
-
-        // Skip reading our own menu bar (causes NSMenu thread assertion)
-        if bundleId == Bundle.main.bundleIdentifier {
-            log.debug("Skipping self")
             return
         }
 
@@ -256,9 +267,8 @@ final class AppController: ObservableObject {
         // If we don't have cached shortcuts (e.g., double-tap was too fast for speed view),
         // fetch them now
         if currentFilteredShortcuts == nil {
-            guard let frontApp = NSWorkspace.shared.frontmostApplication,
-                  let bundleId = frontApp.bundleIdentifier,
-                  bundleId != Bundle.main.bundleIdentifier else { return }
+            guard let frontApp = resolveTargetApp(),
+                  let bundleId = frontApp.bundleIdentifier else { return }
 
             let appName = frontApp.localizedName ?? "Unknown"
             guard let shortcuts = await menuBarReader.readShortcuts(
