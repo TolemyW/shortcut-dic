@@ -133,8 +133,14 @@ final class AppController: ObservableObject {
         NotificationCenter.default.publisher(for: NSApplication.didResignActiveNotification)
             .sink { [weak self] _ in
                 Task { @MainActor [weak self] in
-                    guard let self, self.overlayMode == .searchMode else { return }
-                    self.dismissSearchMode()
+                    guard let self else { return }
+                    if self.overlayMode == .searchMode {
+                        self.dismissSearchMode()
+                    } else if self.overlayPanel.isVisible {
+                        // Safety net: hide any residual panel when app loses focus
+                        self.overlayPanel.hideOverlay(animated: false)
+                        self.overlayMode = .idle
+                    }
                 }
             }
             .store(in: &cancellables)
@@ -178,9 +184,9 @@ final class AppController: ObservableObject {
             return
         }
 
-        // If modifier was released while we were loading, don't show
-        guard keyMonitor.isModifierHeld else {
-            log.debug("Modifier released during loading, skipping panel show")
+        // If modifier was released while we were loading, or mode changed, don't show
+        guard keyMonitor.isModifierHeld, overlayMode == .idle else {
+            log.debug("Modifier released or mode changed during loading, skipping panel show")
             return
         }
 
@@ -371,7 +377,12 @@ final class AppController: ObservableObject {
             // Panel is pinned in search mode — ignore release
             break
         case .idle:
-            break
+            // Safety net: if panel is still visible despite idle state (race condition),
+            // force hide it to prevent residual windows
+            if overlayPanel.isVisible {
+                log.warning("Panel visible in idle state — force hiding")
+                overlayPanel.hideOverlay(animated: false)
+            }
         }
     }
 

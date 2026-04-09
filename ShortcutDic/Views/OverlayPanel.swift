@@ -59,6 +59,10 @@ final class OverlayPanel: NSPanel {
     }
 
     func showOverlay<V: View>(_ view: V, at position: PanelPosition, material: NSVisualEffectView.Material = .hudWindow, panelOpacity: CGFloat = 0.95) {
+        // Cancel any in-flight hide animation and reset immediately
+        animator().alphaValue = 1
+        if isVisible { orderOut(nil) }
+
         let hostingView = NSHostingView(rootView: view)
         hostingView.frame.size = hostingView.fittingSize
 
@@ -89,12 +93,14 @@ final class OverlayPanel: NSPanel {
 
     func hideOverlay(animated: Bool = true) {
         if isSearchMode { exitSearchMode() }
+        // Always cancel any in-flight show/hide animation first
+        animator().alphaValue = alphaValue
         if animated {
             NSAnimationContext.runAnimationGroup({ context in
                 context.duration = 0.15
                 self.animator().alphaValue = 0
-            }, completionHandler: {
-                self.orderOut(nil)
+            }, completionHandler: { [weak self] in
+                self?.orderOut(nil)
             })
         } else {
             alphaValue = 0
