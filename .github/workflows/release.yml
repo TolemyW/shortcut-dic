@@ -15,14 +15,16 @@ jobs:
       - name: Select Xcode
         run: sudo xcode-select -s /Applications/Xcode_16.2.app
 
-      - name: Build Release archive
+      - name: Build Release archive (Universal)
         run: |
           xcodebuild archive \
             -project ShortcutDic.xcodeproj \
             -scheme ShortcutDic \
             -configuration Release \
-            -destination 'platform=macOS' \
+            -destination 'generic/platform=macOS' \
             -archivePath build/ShortcutDic.xcarchive \
+            ARCHS="arm64 x86_64" \
+            ONLY_ACTIVE_ARCH=NO \
             CODE_SIGN_IDENTITY="-" \
             CODE_SIGNING_ALLOWED=NO
 
@@ -42,5 +44,21 @@ jobs:
         run: |
           gh release create "${GITHUB_REF_NAME}" \
             --title "ShortcutDic ${GITHUB_REF_NAME}" \
-            --generate-notes \
+            --notes "$(cat <<'EOF'
+          ## System Requirements
+
+          - **OS**: macOS 14.0 (Sonoma) or later
+          - **Architecture**: Apple Silicon (M1/M2/M3/M4) and Intel (Universal Binary)
+          - **Permissions**: Accessibility access required (prompted on first launch)
+
+          ## Installation
+
+          1. Download `ShortcutDic-${{ github.ref_name }}.zip` below
+          2. Unzip and move `ShortcutDic.app` to `/Applications`
+          3. Launch and grant Accessibility permission when prompted
+
+          ## What's Changed
+          $(gh api repos/${{ github.repository }}/releases/generate-notes -f tag_name="${GITHUB_REF_NAME}" --jq '.body')
+          EOF
+          )" \
             ShortcutDic-${GITHUB_REF_NAME}.zip
