@@ -5,17 +5,18 @@ on:
     tags: ['v*']
 
 jobs:
-  build-and-release:
+  build:
     runs-on: macos-15
-    permissions:
-      contents: write
+    strategy:
+      matrix:
+        arch: [arm64, x86_64]
     steps:
       - uses: actions/checkout@v4
 
       - name: Select Xcode
         run: sudo xcode-select -s /Applications/Xcode_16.2.app
 
-      - name: Build Release archive (Universal)
+      - name: Build Release archive (${{ matrix.arch }})
         run: |
           xcodebuild archive \
             -project ShortcutDic.xcodeproj \
@@ -23,21 +24,35 @@ jobs:
             -configuration Release \
             -destination 'generic/platform=macOS' \
             -archivePath build/ShortcutDic.xcarchive \
-            ARCHS="arm64 x86_64" \
+            ARCHS="${{ matrix.arch }}" \
             ONLY_ACTIVE_ARCH=NO \
             CODE_SIGN_IDENTITY="-" \
             CODE_SIGNING_ALLOWED=NO \
             DEVELOPMENT_TEAM="${{ secrets.APPLE_TEAM_ID }}"
 
-      - name: Export app from archive
+      - name: Export app and create zip
         run: |
           mkdir -p build/export
           cp -R build/ShortcutDic.xcarchive/Products/Applications/ShortcutDic.app build/export/
-
-      - name: Create zip
-        run: |
           cd build/export
-          zip -r -y ../../ShortcutDic-${GITHUB_REF_NAME}.zip ShortcutDic.app
+          zip -r -y ../../ShortcutDic-${GITHUB_REF_NAME}-${{ matrix.arch }}.zip ShortcutDic.app
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ShortcutDic-${{ matrix.arch }}
+          path: ShortcutDic-${{ github.ref_name }}-${{ matrix.arch }}.zip
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          merge-multiple: true
 
       - name: Generate release notes
         env:
@@ -48,16 +63,25 @@ jobs:
           ## System Requirements
 
           - macOS 14.0 (Sonoma) or later
-          - Apple Silicon (M1/M2/M3/M4) and Intel (Universal Binary)
           - Accessibility permission (prompted on first launch)
+
+          ## Downloads
+
+          | File | Architecture |
+          |------|-------------|
+          STATIC
+          sed -i 's/^          //' release-notes.md
+          echo "| \`ShortcutDic-${TAG}-arm64.zip\` | Apple Silicon (M1/M2/M3/M4) |" >> release-notes.md
+          echo "| \`ShortcutDic-${TAG}-x86_64.zip\` | Intel |" >> release-notes.md
+          cat >> release-notes.md <<'STATIC'
 
           ## Installation
 
+          1. Download the zip for your Mac's architecture above
+          2. Unzip and move `ShortcutDic.app` to `/Applications`
+          3. Launch and grant Accessibility permission when prompted
           STATIC
-          sed -i '' 's/^          //' release-notes.md
-          echo "1. Download \`ShortcutDic-${TAG}.zip\` below" >> release-notes.md
-          echo '2. Unzip and move `ShortcutDic.app` to `/Applications`' >> release-notes.md
-          echo '3. Launch and grant Accessibility permission when prompted' >> release-notes.md
+          sed -i 's/^          //' release-notes.md
           echo '' >> release-notes.md
           CHANGELOG=$(gh api "repos/${{ github.repository }}/releases/generate-notes" \
             -f tag_name="${TAG}" --jq '.body' 2>/dev/null || true)
@@ -71,7 +95,9 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release create "${GITHUB_REF_NAME}" \
-            --title "ShortcutDic ${GITHUB_REF_NAME}" \
+          gh release create "${{ github.ref_name }}" \
+            --repo "${{ github.repository }}" \
+            --title "ShortcutDic ${{ github.ref_name }}" \
             --notes-file release-notes.md \
-            ShortcutDic-${GITHUB_REF_NAME}.zip
+            ShortcutDic-${{ github.ref_name }}-arm64.zip \
+            ShortcutDic-${{ github.ref_name }}-x86_64.zip
