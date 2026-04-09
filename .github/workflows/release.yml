@@ -38,13 +38,13 @@ jobs:
           cd build/export
           zip -r -y ../../ShortcutDic-${GITHUB_REF_NAME}.zip ShortcutDic.app
 
-      - name: Create GitHub Release
+      - name: Generate release notes
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release create "${GITHUB_REF_NAME}" \
-            --title "ShortcutDic ${GITHUB_REF_NAME}" \
-            --notes "$(cat <<'EOF'
+          CHANGELOG=$(gh api repos/${{ github.repository }}/releases/generate-notes \
+            -f tag_name="${GITHUB_REF_NAME}" --jq '.body' 2>/dev/null || echo "")
+          cat > release-notes.md <<NOTES
           ## System Requirements
 
           - **OS**: macOS 14.0 (Sonoma) or later
@@ -53,12 +53,21 @@ jobs:
 
           ## Installation
 
-          1. Download `ShortcutDic-${{ github.ref_name }}.zip` below
-          2. Unzip and move `ShortcutDic.app` to `/Applications`
+          1. Download \`ShortcutDic-${GITHUB_REF_NAME}.zip\` below
+          2. Unzip and move \`ShortcutDic.app\` to \`/Applications\`
           3. Launch and grant Accessibility permission when prompted
 
-          ## What's Changed
-          $(gh api repos/${{ github.repository }}/releases/generate-notes -f tag_name="${GITHUB_REF_NAME}" --jq '.body')
-          EOF
-          )" \
+          ${CHANGELOG:+## What's Changed
+
+          $CHANGELOG}
+          NOTES
+          sed -i '' 's/^          //' release-notes.md
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "${GITHUB_REF_NAME}" \
+            --title "ShortcutDic ${GITHUB_REF_NAME}" \
+            --notes-file release-notes.md \
             ShortcutDic-${GITHUB_REF_NAME}.zip
