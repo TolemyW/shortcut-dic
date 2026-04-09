@@ -26,27 +26,40 @@ final class OverlayPanel: NSPanel {
         isExcludedFromWindowsMenu = true
     }
 
+    /// Closure called when ESC is pressed at the panel level (backstop).
+    var onCancelOperation: (() -> Void)?
+
     func enterSearchMode() {
         isSearchMode = true
         styleMask.remove(.nonactivatingPanel)
-        NSApp.activate()
+        // Force activation — the parameterless activate() is unreliable for LSUIElement apps
+        NSApp.activate(ignoringOtherApps: true)
         makeKeyAndOrderFront(nil)
-        // Focus the first NSTextField inside the hosting view
-        DispatchQueue.main.async { [weak self] in
-            self?.focusTextField()
-        }
+        // Retry focusing: SwiftUI's NSViewRepresentable may not be in the view hierarchy yet
+        focusTextFieldWithRetry(attempts: 3, delay: 0.05)
     }
 
     func exitSearchMode() {
         isSearchMode = false
+        onCancelOperation = nil
         styleMask.insert(.nonactivatingPanel)
         resignKey()
     }
 
-    private func focusTextField() {
-        guard let contentView else { return }
+    override func cancelOperation(_ sender: Any?) {
+        // Backstop: if ESC reaches the panel (text field didn't handle it), dismiss
+        onCancelOperation?()
+    }
+
+    private func focusTextFieldWithRetry(attempts: Int, delay: TimeInterval) {
+        guard attempts > 0, let contentView else { return }
         if let textField = findTextField(in: contentView) {
             makeFirstResponder(textField)
+        } else {
+            // SwiftUI may not have created the NSTextField yet — retry after a short delay
+            DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
+                self?.focusTextFieldWithRetry(attempts: attempts - 1, delay: delay)
+            }
         }
     }
 

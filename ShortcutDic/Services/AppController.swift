@@ -24,7 +24,9 @@ final class AppController: ObservableObject {
 
     private var cancellables = Set<AnyCancellable>()
     private var permissionTimer: Timer?
-    private var escMonitor: Any?
+    private var escLocalMonitor: Any?
+    private var escGlobalMonitor: Any?
+    private var clickOutsideMonitor: Any?
     private var globalHotkeyMonitor: Any?
     private var localHotkeyMonitor: Any?
     private var cacheCleanupTimer: Timer?
@@ -306,13 +308,24 @@ final class AppController: ObservableObject {
             }
         ).environment(\.appTheme, theme)
 
+        overlayPanel.onCancelOperation = { [weak self] in
+            Task { @MainActor [weak self] in
+                self?.dismissSearchMode()
+            }
+        }
         overlayPanel.showOverlay(view, at: settings.panelPosition, material: material, panelOpacity: settings.panelOpacity)
         overlayPanel.enterSearchMode()
         overlayMode = .searchMode
 
-        // Fallback Esc monitor in case text field doesn't have focus
-        escMonitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown) { [weak self] event in
-            if event.keyCode == 53 { // Esc
+        installSearchMonitors()
+    }
+
+    private func installSearchMonitors() {
+        removeSearchMonitors()
+
+        // Local ESC monitor (fires when this app is active)
+        escLocalMonitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown) { [weak self] event in
+            if event.keyCode == 53 {
                 Task { @MainActor [weak self] in
                     self?.dismissSearchMode()
                 }
@@ -320,14 +333,34 @@ final class AppController: ObservableObject {
             }
             return event
         }
+
+        // Global ESC monitor (fires when another app is active — backup)
+        escGlobalMonitor = NSEvent.addGlobalMonitorForEvents(matching: .keyDown) { [weak self] event in
+            if event.keyCode == 53 {
+                Task { @MainActor [weak self] in
+                    self?.dismissSearchMode()
+                }
+            }
+        }
+
+        // Click outside the panel to dismiss
+        clickOutsideMonitor = NSEvent.addGlobalMonitorForEvents(matching: [.leftMouseDown, .rightMouseDown]) { [weak self] _ in
+            Task { @MainActor [weak self] in
+                self?.dismissSearchMode()
+            }
+        }
+    }
+
+    private func removeSearchMonitors() {
+        if let m = escLocalMonitor { NSEvent.removeMonitor(m); escLocalMonitor = nil }
+        if let m = escGlobalMonitor { NSEvent.removeMonitor(m); escGlobalMonitor = nil }
+        if let m = clickOutsideMonitor { NSEvent.removeMonitor(m); clickOutsideMonitor = nil }
     }
 
     private func dismissSearchMode() {
+        guard overlayMode == .searchMode else { return }
         log.info("Dismissing search mode")
-        if let monitor = escMonitor {
-            NSEvent.removeMonitor(monitor)
-            escMonitor = nil
-        }
+        removeSearchMonitors()
         overlayPanel.hideOverlay()
         overlayMode = .idle
         keyMonitor.isLocked = false
@@ -346,10 +379,7 @@ final class AppController: ObservableObject {
         usageTracker.record(bundleId: bundleId, keyEquivalent: shortcut.keyEquivalent, modifiers: shortcut.modifiers)
 
         // Dismiss and execute
-        if let monitor = escMonitor {
-            NSEvent.removeMonitor(monitor)
-            escMonitor = nil
-        }
+        removeSearchMonitors()
         overlayPanel.hideOverlay()
         overlayMode = .idle
         keyMonitor.isLocked = false
