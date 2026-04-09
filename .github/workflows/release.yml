@@ -26,7 +26,8 @@ jobs:
             ARCHS="arm64 x86_64" \
             ONLY_ACTIVE_ARCH=NO \
             CODE_SIGN_IDENTITY="-" \
-            CODE_SIGNING_ALLOWED=NO
+            CODE_SIGNING_ALLOWED=NO \
+            DEVELOPMENT_TEAM="${{ secrets.APPLE_TEAM_ID }}"
 
       - name: Export app from archive
         run: |
@@ -41,27 +42,30 @@ jobs:
       - name: Generate release notes
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ github.ref_name }}
         run: |
-          CHANGELOG=$(gh api repos/${{ github.repository }}/releases/generate-notes \
-            -f tag_name="${GITHUB_REF_NAME}" --jq '.body' 2>/dev/null || echo "")
-          cat > release-notes.md <<NOTES
+          cat > release-notes.md <<'STATIC'
           ## System Requirements
 
-          - **OS**: macOS 14.0 (Sonoma) or later
-          - **Architecture**: Apple Silicon (M1/M2/M3/M4) and Intel (Universal Binary)
-          - **Permissions**: Accessibility access required (prompted on first launch)
+          - macOS 14.0 (Sonoma) or later
+          - Apple Silicon (M1/M2/M3/M4) and Intel (Universal Binary)
+          - Accessibility permission (prompted on first launch)
 
           ## Installation
 
-          1. Download \`ShortcutDic-${GITHUB_REF_NAME}.zip\` below
-          2. Unzip and move \`ShortcutDic.app\` to \`/Applications\`
-          3. Launch and grant Accessibility permission when prompted
-
-          ${CHANGELOG:+## What's Changed
-
-          $CHANGELOG}
-          NOTES
+          STATIC
           sed -i '' 's/^          //' release-notes.md
+          echo "1. Download \`ShortcutDic-${TAG}.zip\` below" >> release-notes.md
+          echo '2. Unzip and move `ShortcutDic.app` to `/Applications`' >> release-notes.md
+          echo '3. Launch and grant Accessibility permission when prompted' >> release-notes.md
+          echo '' >> release-notes.md
+          CHANGELOG=$(gh api "repos/${{ github.repository }}/releases/generate-notes" \
+            -f tag_name="${TAG}" --jq '.body' 2>/dev/null || true)
+          if [ -n "$CHANGELOG" ]; then
+            echo "## What's Changed" >> release-notes.md
+            echo "" >> release-notes.md
+            echo "$CHANGELOG" >> release-notes.md
+          fi
 
       - name: Create GitHub Release
         env:
